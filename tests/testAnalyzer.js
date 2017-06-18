@@ -6,6 +6,11 @@ let Analyzer = require('../lib/Analyzer');
 
 let path = require('path');
 
+function readMeCode(){
+  let myAnalyzer = new Analyzer(['password1','MargaretThatcherisa110%sexy!']);
+  myAnalyzer.writeCSVFile();
+}
+
 
 function testAnalyzer(lang = 'en') {
   let testPasswords = [
@@ -34,4 +39,5 @@ function testFileAnalysis() {
 
 
 // testAnalyzer(Analyzer.LANGUAGES.german);
-testFileAnalysis();
+// testFileAnalysis();
+readMeCode();

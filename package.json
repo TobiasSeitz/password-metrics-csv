@@ -13,6 +13,7 @@
     "strength",
     "csv"
   ],
+  "private": true,
   "author": "Tobi Seitz <info@tobi-seitz.com>",
   "license": "MIT",
   "bugs": {
