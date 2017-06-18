@@ -2,10 +2,9 @@
  * Created by Tobi on 17.06.17.
  */
 
-
 let Analyzer = require('../lib/Analyzer');
 
-
+let path = require('path');
 
 
 function testAnalyzer(lang = 'en') {
@@ -19,9 +18,20 @@ function testAnalyzer(lang = 'en') {
   let test = new Analyzer(testPasswords, lang
   );
 
-
   console.log(test.makeCSVString());
 }
 
+function testFileAnalysis() {
+  console.log('starting test.' );
+  let passwordFileName = 'passwords.txt';
+  let analyzer = new Analyzer();
 
-testAnalyzer(Analyzer.LANGUAGES.german);
+  analyzer.lang = Analyzer.LANGUAGES.german;
+  analyzer.analyzePasswordsInFile(path.join(__dirname,passwordFileName));
+
+  console.log(analyzer.makeCSVString());
+}
+
+
+// testAnalyzer(Analyzer.LANGUAGES.german);
+testFileAnalysis();
