@@ -1,6 +1,6 @@
 {
   "name": "password-metrics-csv",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A tool to create a csv containing meta information about password strength",
   "main": "index.js",
   "scripts": {
@@ -21,6 +21,7 @@
   "homepage": "https://github.com/TobiasSeitz/password-metrics-csv#readme",
   "files": [
     "index.js",
+    "bin/*.js",
     "lib/*.js",
     "util/*.js",
     "dictionaries/*.json"
