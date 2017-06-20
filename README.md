@@ -5,18 +5,19 @@ A NodeJS tool to create metrics from a list of passwords. The zxcvbn library is 
 ## Dependencies
 - NodeJS & npm
 - [zxcvbn](https://github.com/dropbox/zxcvbn) 
+- [commander](https://www.npmjs.com/package/commander)
 
 ## Installation
 
-Currently, only npm is supported. The package does not support to be run in the browser.
+Currently, only npm is supported. The package does not (yet) support to be run in the browser.
 
 ### Node/npm
 
 `npm install password-metrics-csv`
 
-## Usage
+## Usage 
 
-### Basic ###
+### Basic Usage in NodeJS App / Script ###
 ```ecmascript 6 
 let Analyzer = require('password-metrics-csv');
 
@@ -30,9 +31,24 @@ password,guesses,guesses_log10,calc_time,score,chunks,lowercase,uppercase,digits
 "MargaretThatcherisa110%sexy!",538324720000000000,17.731044323180157,17,4,5,21,2,3,2,28,0,"dictionary","female_names","false","false",2,1,50,1.6989700043360185,8,0,19379689920000000000,53832472000000000,53832472000000,53832472
 ```
 
-### Reading a Password File ###
+#### .makeCSVString() ####
+Generates a string in CSV format containing the analysis. Depending on the password analysis the columns might differ slightly, but there are these common columns:
+- password: The password that was analyzed. If the original password contained quotation marks `"`, those will be replaced by `&quot;` in the generated CSV string.  
+- guesses: estimated number of guesses required to find out the password.
+- guesses_log10: simply log(guesses)
+- calc_time: how long did the calculation take?
+- score: 0 is very weak, 4 is very strong
+- chunks: number of identifiable word-like chunks inside the password
+- lowercase: number of lowercase letters
+- uppercase: number of uppercase letters
+- digits: number of digits
+- symbols: number of common symbols: `@'#.$;%^&+=!"()*,-/:<>?§`
+- length: total number of characters 
+- substitutions: number of l33t substitutions
 
-You can use the module to read the passwords from a file on your hard drive.
+#### .analyzePasswordsInFile(filename) ####
+
+You can use the module to read the passwords from a file. There must only be one **password per line**.
 ```ecmascript 6 
 let passwordFileName = 'passwords.txt';
 let analyzer = new Analyzer();
@@ -41,27 +57,31 @@ analyzer.analyzePasswordsInFile(passwordFileName);
 ```
 
 
+#### .writeCSVFile([filename],[fn]) ####
+Writes the current analysis as CSV-formatted file. The default filename is `pw-analysis.csv` and is located at the same directory from which the node process was started.  
+
 ### Command Line Usage ###
-Theres a small script that you can run from the commandline.
+You can install the module globally and run it as a command from anywhere on the terminal.
 
-```
-$ cd node_modules/password-metrics-csv
-$ node bin/analyze /home/jimmy/passwords.txt 
-```
-You'll have a `pw-analysis.csv` file in the current directory that you can process through R/SPSS/Excel.
+1. `npm install -g password-metrics-csv`
+2. `analyze-passwords passwords.txt` 
 
+The file containing the passwords must have one password per line. After running the command, you'll have a `pw-analysis.csv` file in the current directory that you can process through R/SPSS/Excel.
 
-Usage info:
+Further usage info:
 ``` 
-Usage:  node bin/analyze <pw-filename> [<language>]
+Usage: analyze-passwords [options] <file>
 
-Arguments:
-    pw-filename:    A text-file that contains one password per line. The passwords should not be in quotes.
-    language:       Base the analysis on a certain language. One of ["en","de"]. Default = "en"
+Options:
 
-Output will be in pw-analysis.csv
+-l, --language [language]   additional language to load
+-o, --output-path [output]  path to write the .csv file containing the analysis.
+-h, --help                  output usage information
+-V, --version               output the version number
 ```
 
+## Remarks ##
+- Passwords that contain a quotation mark are analyzed as usual, but the quotation marks are replaced by `&quot;` in the generated csv.
 
 ## Author(s) ##
 

@@ -1,6 +1,6 @@
 {
   "name": "password-metrics-csv",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "A tool to create a csv containing meta information about password strength",
   "main": "index.js",
   "scripts": {
