@@ -1,6 +1,6 @@
 {
   "name": "password-metrics-csv",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A tool to create a csv containing meta information about password strength",
   "main": "index.js",
   "scripts": {
@@ -27,6 +27,10 @@
     "dictionaries/*.json"
   ],
   "dependencies": {
+    "commander": "^2.9.0",
     "zxcvbn": "^4.4.2"
+  },
+  "bin": {
+    "analyze-passwords": "./bin/analyze-passwords.js"
   }
 }
